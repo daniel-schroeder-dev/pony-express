@@ -1,6 +1,6 @@
-# Accept Header Practice App
+# Pony Express
 
-This app is the first exercise from [Functional Design Patterns For Express.js](https://jonathanleemartin.com/books/).
+This app is an implemenation of a mail server using Express from [Functional Design Patterns For Express.js](https://jonathanleemartin.com/books/).
 
 ## Usage
 
@@ -8,7 +8,7 @@ Hit the routes GET /users and GET /emails to get a JSON response. If you specify
 
 ## Demo
 
-Visit the app [here](https://accept-header-practice.herokuapp.com/) or make requests from your favorite REST client to the base url `https://accept-header-practice.herokuapp.com/`
+Visit the app [here](https://pony-express.herokuapp.com/) or make requests from your favorite REST client to the base url `https://pony-express.herokuapp.com/`
 
 ## Examples
 
