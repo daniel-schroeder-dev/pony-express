@@ -1,6 +1,6 @@
 const express = require('express');
-const users = require('../fixtures/users');
 const formatResponse = require('../utils/formatResponse');
+const users = require('../fixtures/users');
 
 const router = express.Router();
 

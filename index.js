@@ -1,6 +1,4 @@
 const express = require('express');
-const emails = require('./fixtures/emails');
-
 const usersRouter = require('./routes/users');
 const emailsRouter = require('./routes/emails');
 

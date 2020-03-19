@@ -1,6 +1,6 @@
 const express = require('express');
-const emails = require('../fixtures/emails');
 const formatResponse = require('../utils/formatResponse');
+const emails = require('../fixtures/emails');
 
 const router = express.Router();
 
