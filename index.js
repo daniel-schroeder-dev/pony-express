@@ -8,23 +8,24 @@ const emails = require('./fixtures/emails');
 const app = express();
 
 app.get('/users', (req, res, next) => {
+  if (req.accepts('application/json')) return res.json(users);
   if (req.accepts('text/csv')) {
     return res.type('text/csv').send(convertToCSV(users));
   } 
   if (req.accepts('application/xml')) {
     return res.type('application/xml').send(js2xmlparser.parse('users', users));
   }
-  res.json(users);
+
 });
 
 app.get('/emails', (req, res, next) => {
+  if (req.accepts('application/json')) return res.json(emails);
   if (req.accepts('text/csv')) {
     return res.type('text/csv').send(convertToCSV(emails));
   }
   if (req.accepts('application/xml')) {
     return res.type('application/xml').send(js2xmlparser.parse('emails', emails));
   }
-  res.json(emails);
 });
 
 app.listen(3000, () => {

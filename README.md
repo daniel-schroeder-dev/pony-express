@@ -4,4 +4,4 @@ This app is the first exercise from [Functional Design Patterns For Express.js](
 
 ## About
 
-Hit the routes GET /users and GET /emails to get a JSON response. If you specify a Content-Type in an Accept header, the app can return JSON, XML, or CSV at those same routes.
+Hit the routes GET /users and GET /emails to get a JSON response. If you specify a Content-Type in an Accept header, the app can return JSON, XML, or CSV at those same routes, with JSON being the default if no Content-Type is specified.
