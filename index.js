@@ -1,7 +1,4 @@
 const express = require('express');
-const { parse } = require('json2csv');
-const js2xmlparser = require('js2xmlparser');
-
 const usersRouter = require('./routes/users');
 const emails = require('./fixtures/emails');
 
@@ -27,13 +24,3 @@ app.listen(PORT, () => {
   console.log('Express app up at:', PORT);
 });
 
-function convertToCSV(jsonData) {
-  const fields = Object.keys(jsonData[0]);
-  const opts = { fields };
-  try {
-    const csv = parse(jsonData, opts);
-    return csv;
-  } catch (err) {
-    console.error(err);
-  }
-}
