@@ -1,6 +1,6 @@
 const { parse } = require('json2csv');
 
-function convertToCSV(jsonData) {
+const convertToCSV = (jsonData) => {
   const fields = Object.keys(jsonData[0]);
   const opts = { fields };
   try {
@@ -9,6 +9,6 @@ function convertToCSV(jsonData) {
   } catch (err) {
     console.error(err);
   }
-}
+};
 
 module.exports = convertToCSV;
