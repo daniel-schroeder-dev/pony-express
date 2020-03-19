@@ -5,6 +5,9 @@ const emails = require('./fixtures/emails');
 const app = express();
 
 app.get('/users', (req, res, next) => {
+  if (req.accepts('text/csv')) {
+    console.log('csv');
+  }
   res.json(users);
 });
 
