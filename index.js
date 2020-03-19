@@ -9,12 +9,13 @@ const app = express();
 
 app.get('/users', (req, res, next) => {
   if (req.accepts('text/csv')) return res.send(convertToCSV(users));
-  if (req.accepts('application/xml')) return res.send(js2xmlparser.parse("users", users));
+  if (req.accepts('application/xml')) return res.send(js2xmlparser.parse('users', users));
   res.json(users);
 });
 
 app.get('/emails', (req, res, next) => {
   if (req.accepts('text/csv')) return res.send(convertToCSV(emails));
+  if (req.accepts('application/xml')) return res.send(js2xmlparser.parse('emails', emails));
   res.json(emails);
 });
 
