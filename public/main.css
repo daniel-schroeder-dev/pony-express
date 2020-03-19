@@ -1,0 +1,12 @@
+main {
+  max-width: 800px;
+  margin: 48px auto;
+  padding: 24px;
+  box-shadow: 0px 0px 4px 2px #ababab;
+  font-family: Cambria, Georgia, Times, ‘Times New Roman’, serif;
+}
+
+p {
+  max-width: 700px;
+  line-height: 1.35em;
+}

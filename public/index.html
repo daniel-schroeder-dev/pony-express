@@ -3,15 +3,19 @@
 <head>
   <meta charset="utf-8">
   <title>Accept Header Practice - Express</title>
+  <link rel="stylesheet" type="text/css" href="/main.css">
 </head>
 <body>
-  <h1>Accept Header Practice App</h1>
+  <main>
+    <h1>Accept Header Practice App</h1>
 
-  <p>This app is the first exercise from <a href="https://jonathanleemartin.com/books/">Functional Design Patterns For Express.js</a>.<p>
+    <p>This app is the first exercise from <a href="https://jonathanleemartin.com/books/">Functional Design Patterns For Express.js</a>.<p>
 
-  <h2>About</h2>
+    <h2>Usage</h2>
 
-  <p>Hit the routes GET /users and GET /emails to get a JSON response. If you specify a Content-Type in an Accept header, the app can return JSON, XML, or CSV at those same routes, with JSON being the default if no Content-Type is specified.</p>
+    <p>Hit the routes GET /users and GET /emails to get a JSON response. If you specify a Content-Type in an Accept header, the app can return JSON, XML, or CSV at those same routes, with JSON as the default if the */* Accept header is sent, or if the default browser Accept header is sent.</p>
+  </main>
   
+
 </body>
 </html>
