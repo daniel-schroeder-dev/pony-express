@@ -6,16 +6,7 @@ const emails = require('./fixtures/emails');
 const app = express();
 
 app.get('/users', (req, res, next) => {
-  if (req.accepts('text/csv')) {
-    const userFields = Object.keys(users[0]);
-    const userOpts = { userFields };
-    try {
-      const csv = parse(users, userOpts);
-      return res.send(csv);
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  if (req.accepts('text/csv')) return res.send(convertToCSV(users));
   res.json(users);
 });
 
@@ -26,3 +17,14 @@ app.get('/emails', (req, res, next) => {
 app.listen(3000, () => {
   console.log('Express app up at 3000.');
 });
+
+function convertToCSV(jsonData) {
+  const fields = Object.keys(jsonData[0]);
+  const opts = { fields };
+  try {
+    const csv = parse(jsonData, opts);
+    return csv;
+  } catch (err) {
+    console.error(err);
+  }
+}
