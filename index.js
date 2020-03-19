@@ -1,5 +1,7 @@
 const express = require('express');
 const { parse } = require('json2csv');
+const js2xmlparser = require('js2xmlparser');
+
 const users = require('./fixtures/users');
 const emails = require('./fixtures/emails');
 
@@ -7,6 +9,7 @@ const app = express();
 
 app.get('/users', (req, res, next) => {
   if (req.accepts('text/csv')) return res.send(convertToCSV(users));
+  if (req.accepts('application/xml')) return res.send(js2xmlparser.parse("users", users));
   res.json(users);
 });
 
