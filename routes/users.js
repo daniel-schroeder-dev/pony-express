@@ -1,7 +1,7 @@
 const express = require('express');
-const users = require('../fixtures/users');
-const js2xmlparser = require('js2xmlparser');
 const convertToCSV = require('../utils/convertToCSV');
+const js2xmlparser = require('js2xmlparser');
+const users = require('../fixtures/users');
 
 const router = express.Router();
 
