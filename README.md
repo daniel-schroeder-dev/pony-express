@@ -8,7 +8,7 @@ Hit the routes GET /users and GET /emails to get a JSON response. If you specify
 
 ## Demo
 
-Visit the app [here](https://pony-express.herokuapp.com/) or make requests from your favorite REST client to the base url `https://pony-express.herokuapp.com/`
+Visit the app [here](https://pony-express-ds.herokuapp.com/) or make requests from your favorite REST client to the base url `https://pony-express-ds.herokuapp.com/`
 
 ## Examples
 
@@ -18,7 +18,7 @@ GET /users as XML
 
 ```
 curl --request GET \
-  --url https://accept-header-practice.herokuapp.com/users \
+  --url https://pony-express-ds.herokuapp.com/users \
   --header 'accept: application/xml'
 ```
 
@@ -26,12 +26,12 @@ GET /emails as CSV
 
 ```
 curl --request GET \
-  --url https://accept-header-practice.herokuapp.com/emails \
+  --url https://pony-express-ds.herokuapp.com/emails \
   --header 'accept: text/csv'
 ```
 GET /emails as JSON (no accept header or accept all defaults to JSON)
 
 ```
 curl --request GET \
-  --url https://accept-header-practice.herokuapp.com/emails
+  --url https://pony-express-ds.herokuapp.com/emails
 ```
