@@ -11,6 +11,7 @@ app.get('/users', (req, res, next) => {
 });
 
 app.get('/emails', (req, res, next) => {
+  if (req.accepts('text/csv')) return res.send(convertToCSV(emails));
   res.json(emails);
 });
 
