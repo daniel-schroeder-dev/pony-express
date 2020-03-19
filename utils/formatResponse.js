@@ -6,6 +6,7 @@ const formatResponse = (res, data, xmlRoot) => {
     'application/json': () => res.json(data),
     'text/csv': () => res.send(convertToCSV(data)),
     'application/xml': () => res.send(js2xmlparser.parse(xmlRoot, data)),
+    'default': () => res.json(data),
   });
 };
 
