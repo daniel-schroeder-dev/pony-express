@@ -1,6 +1,9 @@
 const express = require('express');
 const os = require('os');
+
 const formatResponse = require('../utils/formatResponse');
+const getNextEmailId = require('../utils/getNextEmailId');
+
 const emails = require('../fixtures/emails');
 
 const router = express.Router();
@@ -28,9 +31,5 @@ const parseRequest = req => {
     req.on('end', () => resolve(JSON.parse(Buffer.concat(chunks).toString())));  
   });
 }
-
-const getNextEmailId = emails => {
-  return (+emails[emails.length - 1].id + 1).toString();
-};
 
 module.exports = router;
