@@ -3,6 +3,7 @@ const os = require('os');
 
 const formatResponse = require('../utils/formatResponse');
 const getNextEmailId = require('../utils/getNextEmailId');
+const parseRequest = require('../utils/parseRequest');
 
 const emails = require('../fixtures/emails');
 
@@ -23,13 +24,5 @@ router.post('/', async (req, res, next) => {
   emails.push(email);
   res.status(201).location(`http://${req.headers.host}/emails/${email.id}`).send();
 });
-
-const parseRequest = req => {
-  return new Promise((resolve, reject) => {
-    let chunks = [];
-    req.on('data', chunk => chunks.push(chunk));
-    req.on('end', () => resolve(JSON.parse(Buffer.concat(chunks).toString())));  
-  });
-}
 
 module.exports = router;
