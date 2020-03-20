@@ -8,4 +8,9 @@ router.get('/', (req, res, next) => {
   formatResponse(res, emails, 'emails');
 });
 
+router.get('/:id', (req, res, next) => {
+  const email = emails.find(email => email.id === req.params.id);
+  formatResponse(res, email, 'email');
+});
+
 module.exports = router;
