@@ -5,7 +5,7 @@ const formatResponse = require('../utils/formatResponse');
 const getNextEmailId = require('../utils/getNextEmailId');
 const parseRequest = require('../utils/parseRequest');
 
-const emails = require('../fixtures/emails');
+let emails = require('../fixtures/emails');
 
 const router = express.Router();
 
@@ -23,6 +23,12 @@ router.post('/', async (req, res, next) => {
   email.id = getNextEmailId(emails);
   emails.push(email);
   res.status(201).location(`http://${req.headers.host}/emails/${email.id}`).send();
+});
+
+router.delete('/:id', (req, res, next) => {
+  const emailToDelete = emails.find(email => email.id === req.params.id);
+  emails = emails.filter(email => email.id !== req.params.id);
+  res.status(200).json(emailToDelete);
 });
 
 module.exports = router;
