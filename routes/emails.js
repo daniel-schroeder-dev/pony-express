@@ -13,4 +13,18 @@ router.get('/:id', (req, res, next) => {
   formatResponse(res, email, 'email');
 });
 
+router.post('/', async (req, res, next) => {
+  const body = await parseRequest(req);
+  emails.push(body);
+  res.status(201).location('/emails/').send();
+});
+
+const parseRequest = req => {
+  return new Promise((resolve, reject) => {
+    let chunks = [];
+    req.on('data', chunk => chunks.push(chunk));
+    req.on('end', () => resolve(JSON.parse(Buffer.concat(chunks).toString())));  
+  });
+}
+
 module.exports = router;
