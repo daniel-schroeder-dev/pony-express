@@ -14,9 +14,10 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
-  const body = await parseRequest(req);
-  emails.push(body);
-  res.status(201).location('/emails/').send();
+  const email = await parseRequest(req);
+  email.id = getNextEmailId(emails);
+  emails.push(email);
+  res.status(201).location('/emails/').send(email);
 });
 
 const parseRequest = req => {
@@ -26,5 +27,9 @@ const parseRequest = req => {
     req.on('end', () => resolve(JSON.parse(Buffer.concat(chunks).toString())));  
   });
 }
+
+const getNextEmailId = emails => {
+  return (+emails[emails.length - 1].id + 1).toString();
+};
 
 module.exports = router;
