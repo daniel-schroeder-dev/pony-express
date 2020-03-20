@@ -1,4 +1,5 @@
 const express = require('express');
+const os = require('os');
 const formatResponse = require('../utils/formatResponse');
 const emails = require('../fixtures/emails');
 
@@ -17,7 +18,7 @@ router.post('/', async (req, res, next) => {
   const email = await parseRequest(req);
   email.id = getNextEmailId(emails);
   emails.push(email);
-  res.status(201).location('/emails/').send(email);
+  res.status(201).location(`http://${req.headers.host}/emails/${email.id}`).send();
 });
 
 const parseRequest = req => {
