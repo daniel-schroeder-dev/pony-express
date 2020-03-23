@@ -15,6 +15,15 @@ app.use(express.static('public'));
 app.use('/users', usersRouter);
 app.use('/emails', emailsRouter);
 
+app.use(errorHandler);
+
+function errorHandler (err, req, res, next) {
+  if (res.headersSent) {
+    return next(err)
+  }
+  res.status(500).json({ error: err.message });
+}
+
 app.listen(PORT, () => {
   console.log('Express app up at:', PORT);
 });

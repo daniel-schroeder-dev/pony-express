@@ -10,6 +10,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
   const user = users.find(user => user.id === req.params.id);
+  if (!user) throw new Error('No user found with id', req.params.id);
   formatResponse(res, user, 'user');
 });
 
