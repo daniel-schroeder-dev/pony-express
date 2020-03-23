@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^3.0.0",
     "express": "^4.17.1",
     "js2xmlparser": "^4.0.1",
     "json2csv": "^5.0.0"
