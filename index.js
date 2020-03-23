@@ -1,5 +1,6 @@
 const express = require('express');
 
+const defaultErrorHandler = require('./middleware/defaultErrorHandler');
 const logger = require('./middleware/logger');
 
 const usersRouter = require('./routes/users');
@@ -15,15 +16,7 @@ app.use(express.static('public'));
 app.use('/users', usersRouter);
 app.use('/emails', emailsRouter);
 
-app.use(errorHandler);
-
-function errorHandler (err, req, res, next) {
-  if (res.headersSent) {
-    return next(err)
-  }
-  err.statusCode ? res.status(err.statusCode) : res.status(500);
-  res.json({ error: err.name, message: err.message });
-}
+app.use(defaultErrorHandler);
 
 app.listen(PORT, () => {
   console.log('Express app up at:', PORT);
