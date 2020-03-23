@@ -18,7 +18,8 @@ app.use((req, res, next) => {
 const formatLogString = (method, url, statusCode) => {
   method = addColorToMethodString(method);
   statusCode = addColorToStatusCode(statusCode);
-  return `${method} ${url} ${statusCode}`;
+  const tabs = url.length < 8 ? '\t\t' : '\t';
+  return `${method}\t${url}${tabs}${statusCode}`;
 };
 
 const addColorToMethodString = method => {
