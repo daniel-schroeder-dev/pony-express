@@ -37,7 +37,7 @@ router.post('/', async (req, res, next) => {
 });
 
 router.patch('/:id', async (req, res, next) => {
-  const updatedEmail = await parseRequest(req);
+  const updatedEmail = req.body;
   const originalEmail = emails.find(email => email.id === req.params.id);
   Object.assign(originalEmail, updatedEmail);
   res.sendStatus(200);
