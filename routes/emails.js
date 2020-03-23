@@ -18,17 +18,22 @@ router.get('/:id', (req, res, next) => {
   formatResponse(res, email, 'email');
 });
 
-router.post('/', async (req, res, next) => {
-  const email = await parseRequest(req);
-  email.id = getNextEmailId(emails);
-  emails.push(email);
-  res.status(201).location(`http://${req.headers.host}/emails/${email.id}`).send();
-});
-
 router.delete('/:id', (req, res, next) => {
   const emailToDelete = emails.find(email => email.id === req.params.id);
   emails = emails.filter(email => email.id !== req.params.id);
   res.status(200).json(emailToDelete);
+});
+
+router.use(async (req, res, next) => {
+  req.body = await parseRequest(req);
+  next();
+});
+
+router.post('/', async (req, res, next) => {
+  const email = req.body;
+  email.id = getNextEmailId(emails);
+  emails.push(email);
+  res.status(201).location(`http://${req.headers.host}/emails/${email.id}`).send();
 });
 
 router.patch('/:id', async (req, res, next) => {
