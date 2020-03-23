@@ -21,7 +21,8 @@ function errorHandler (err, req, res, next) {
   if (res.headersSent) {
     return next(err)
   }
-  res.status(500).json({ error: err.name, message: err.message });
+  err.statusCode ? res.status(err.statusCode) : res.status(500);
+  res.json({ error: err.name, message: err.message });
 }
 
 app.listen(PORT, () => {

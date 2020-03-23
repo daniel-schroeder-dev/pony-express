@@ -1,5 +1,6 @@
 const express = require('express');
 
+const NotFoundError = require('../errors/NotFoundError');
 const jsonBodyParser = require('../middleware/jsonBodyParser');
 
 const formatResponse = require('../utils/formatResponse');
@@ -15,6 +16,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
   const email = emails.find(email => email.id === req.params.id);
+  if (!email) throw new NotFoundError('No email found with id: ' + req.params.id);
   formatResponse(res, email, 'email');
 });
 
