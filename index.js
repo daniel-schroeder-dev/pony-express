@@ -10,13 +10,15 @@ const app = express();
 app.use((req, res, next) => {
   const { method, url } = req;
   res.on('finish', () => {
-    console.log(`${addColorToMethodString(method)} ${url} ${res.statusCode}`);
+    console.log(formatLogString(method, url, res.statusCode));
   });
   next();
 });
 
 const formatLogString = (method, url, statusCode) => {
-  
+  method = addColorToMethodString(method);
+  statusCode = addColorToStatusCode(statusCode);
+  return `${method} ${url} ${statusCode}`;
 };
 
 const addColorToMethodString = method => {
@@ -27,6 +29,13 @@ const addColorToMethodString = method => {
     'DELETE': chalk.redBright,
   };
   return methodsToColors[method](method);
+};
+
+const addColorToStatusCode = statusCode => {
+  if (statusCode <= 299) return chalk.greenBright(statusCode);
+  if (statusCode <= 399) return chalk.yellowBright(statusCode);
+  if (statusCode <= 499) return chalk.redBright(statusCode);
+  return chalk.bgRedBright(statusCode);
 };
 
 app.use(express.static('public'));
