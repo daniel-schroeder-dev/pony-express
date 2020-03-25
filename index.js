@@ -1,10 +1,10 @@
 const express = require('express');
 
-const defaultErrorHandler = require('./middleware/defaultErrorHandler');
-const logger = require('./middleware/logger');
+const defaultErrorHandler = require('./src/middleware/defaultErrorHandler');
+const logger = require('./src/middleware/logger');
 
-const usersRouter = require('./routes/users');
-const emailsRouter = require('./routes/emails');
+const usersRouter = require('./src/routes/users');
+const emailsRouter = require('./src/routes/emails');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
