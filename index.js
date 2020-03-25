@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 
 const defaultErrorHandler = require('./src/middleware/defaultErrorHandler');
@@ -11,7 +12,7 @@ const app = express();
 
 app.use(logger);
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/users', usersRouter);
 app.use('/emails', emailsRouter);
