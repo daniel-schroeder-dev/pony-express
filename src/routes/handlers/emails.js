@@ -21,12 +21,11 @@ const deleteEmail = (req, res, next) => {
 };
 
 const postEmail = (req, res, next) => {
-  // const email = req.body;
-  // email.id = getNextEmailId(emails);
-  // emails.push(email);
-  // res.status(201).location(`http://${req.headers.host}/emails/${email.id}`).send();
-  console.log(req.files);
-  res.sendStatus(418);
+  const email = req.body;
+  email.attachments = req.files ? req.files.map(file => `uploads/${file.filename}`) : [];
+  email.id = getNextEmailId(emails);
+  emails.push(email);
+  res.status(201).location(`http://${req.headers.host}/emails/${email.id}`).send();
 };
 
 const patchEmail = (req, res, next) => {
