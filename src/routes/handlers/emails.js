@@ -20,14 +20,16 @@ const deleteEmail = (req, res, next) => {
   res.status(200).json(emailToDelete);
 };
 
-const postEmail = async (req, res, next) => {
-  const email = req.body;
-  email.id = getNextEmailId(emails);
-  emails.push(email);
-  res.status(201).location(`http://${req.headers.host}/emails/${email.id}`).send();
+const postEmail = (req, res, next) => {
+  // const email = req.body;
+  // email.id = getNextEmailId(emails);
+  // emails.push(email);
+  // res.status(201).location(`http://${req.headers.host}/emails/${email.id}`).send();
+  console.log(req.files);
+  res.sendStatus(418);
 };
 
-const patchEmail = async (req, res, next) => {
+const patchEmail = (req, res, next) => {
   const updatedEmail = req.body;
   const originalEmail = emails.find(email => email.id === req.params.id);
   Object.assign(originalEmail, updatedEmail);
