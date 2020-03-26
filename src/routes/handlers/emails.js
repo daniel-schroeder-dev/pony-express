@@ -1,6 +1,7 @@
 const formatResponse = require('../../utils/formatResponse');
 const NotFoundError = require('../../errors/NotFoundError');
 const getNextEmailId = require('../../utils/getNextEmailId');
+const formatAttachments = require('../../utils/formatAttachments');
 
 let emails = require('../../fixtures/emails');
 
@@ -26,18 +27,6 @@ const postEmail = (req, res, next) => {
   email.id = getNextEmailId(emails);
   emails.push(email);
   res.status(201).location(`http://${req.headers.host}/emails/${email.id}`).send();
-};
-
-
-const formatAttachments = files => {
-  if (!files) return [];
-  return files.map(file => (
-    {
-      path: `/uploads/${file.filename}`,
-      originalName: file.originalname,
-      size: file.size,
-    }
-  ));
 };
 
 const patchEmail = (req, res, next) => {
