@@ -9,17 +9,16 @@ const { getEmails, getEmail, deleteEmail, postEmail, patchEmail } = require('./h
 
 const router = express.Router();
 
-const postEmailMiddlewareSubStack = [
+const parseResponseBodyMiddlewareSubStack = [
   urlEncodedParser, 
   jsonParser, 
-  upload.array('attachment'), 
-  postEmail,
+  upload.array('attachment'),
 ];
 
 router.get('/', getEmails);
 router.get('/:id', getEmail);
 router.delete('/:id', deleteEmail);
-router.post('/', postEmailMiddlewareSubStack);
-router.patch('/:id', urlEncodedParser, jsonParser, patchEmail);
+router.post('/', parseResponseBodyMiddlewareSubStack, postEmail);
+router.patch('/:id', parseResponseBodyMiddlewareSubStack, patchEmail);
 
 module.exports = router;

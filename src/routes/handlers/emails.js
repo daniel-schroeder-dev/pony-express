@@ -30,7 +30,10 @@ const postEmail = (req, res, next) => {
 
 const patchEmail = (req, res, next) => {
   const updatedEmail = req.body;
+  // if there are attachments, pull them out of req.files and format them in their own variable, DON"T add to updatedEmail yet
   const originalEmail = emails.find(email => email.id === req.params.id);
+  // pull the attachments from the original email and store a copy in it's own variable
+  // create an attachments property on the updatedEmail object, and merge 
   Object.assign(originalEmail, updatedEmail);
   res.sendStatus(200);
 };
