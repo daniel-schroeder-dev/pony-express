@@ -22,13 +22,26 @@ const deleteEmail = (req, res, next) => {
 
 const postEmail = (req, res, next) => {
   const email = req.body;
-  email.attachments = req.files ? req.files.map(file => `uploads/${file.filename}`) : [];
+  email.attachments = formatAttachments(req.files);
   email.id = getNextEmailId(emails);
   emails.push(email);
   res.status(201).location(`http://${req.headers.host}/emails/${email.id}`).send();
 };
 
+
+const formatAttachments = files => {
+  if (!files) return [];
+  return files.map(file => (
+    {
+      path: `/uploads/${file.filename}`,
+      originalName: file.originalname,
+      size: file.size,
+    }
+  ));
+};
+
 const patchEmail = (req, res, next) => {
+  console.log(req.files);
   const updatedEmail = req.body;
   // if there are attachments, pull them out of req.files and format them in their own variable, DON"T add to updatedEmail yet
   const originalEmail = emails.find(email => email.id === req.params.id);
