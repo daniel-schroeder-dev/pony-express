@@ -19,18 +19,15 @@ const getEmails = (req, res, next) => {
 const getEmail = (req, res, next) => {
   let email = emails.find(email => email.id === req.params.id);
   if (!email) throw new NotFoundError('No email found for this user with id: ' + req.params.id);
-  if (!emailBelongsToUser(email, req.user)) throw new ForbiddenError('You do not have permission to access this email');
+  if (!emailBelongsToUser(email, req.user)) throw new ForbiddenError('You do not have permission to GET this email');
   formatResponse(res, email, 'email');
 };
 
 const deleteEmail = (req, res, next) => {
   const emailToDelete = emails.find(email => email.id === req.params.id);
-  if (!emailBelongsToUser(emailToDelete, req.user)) {
-    res.sendStatus(403);
-  } else {
-    emails = emails.filter(email => email.id !== req.params.id);
-    res.status(200).json(emailToDelete);
-  }
+  if (!emailBelongsToUser(emailToDelete, req.user)) throw new ForbiddenError('You do not have permission to DELETE this email');
+  emails = emails.filter(email => email.id !== req.params.id);
+  res.status(200).json(emailToDelete);
 };
 
 const postEmail = (req, res, next) => {
