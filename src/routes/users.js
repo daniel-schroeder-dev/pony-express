@@ -9,10 +9,11 @@ const router = express.Router();
 
 const userAuth = (req, res, next) => {
   const authHeader = req.get('Authorization');
-  if (!authHeader) {
+  if (!authHeader || authHeader.split(' ')[0] !== 'Basic') {
     res.set('WWW-Authenticate', 'Basic: realm="Access to user account"');
     res.status(401).json({ msg: 'Must provide a valid username and password' });
   } else {
+    console.log(authHeader);
     next();
   }
 };
