@@ -13,7 +13,8 @@ const userAuth = (req, res, next) => {
     res.set('WWW-Authenticate', 'Basic: realm="Access to user account"');
     res.status(401).json({ msg: 'Must provide a valid username and password' });
   } else {
-    console.log(authHeader);
+    const userCredentials = Buffer.from(authHeader.split(' ')[1], 'base64').toString('utf8');
+    console.log(userCredentials);
     next();
   }
 };
