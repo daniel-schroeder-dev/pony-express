@@ -5,6 +5,10 @@ const formatAttachments = require('../../utils/formatAttachments');
 
 let emails = require('../../fixtures/emails');
 
+const emailBelongsToUser = (email, userId) => {
+  return userId === email.to || userId === email.from;
+};
+
 /*
 *   The client will be responsible for sorting emails into sent/recieved 
 *   categories, we only send back emails associated with the user.
@@ -16,7 +20,7 @@ const getEmails = (req, res, next) => {
 
 const getEmail = (req, res, next) => {
   let email = emails.find(email => email.id === req.params.id);
-  if (!email || (req.user.id !== email.to && req.user.id !== email.from) ) throw new NotFoundError('No email found for this user with id: ' + req.params.id);
+  if (!email || !emailBelongsToUser(email, req.user.id)) throw new NotFoundError('No email found for this user with id: ' + req.params.id);
   formatResponse(res, email, 'email');
 };
 
