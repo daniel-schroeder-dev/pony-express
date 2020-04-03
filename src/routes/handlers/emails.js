@@ -15,8 +15,8 @@ const getEmails = (req, res, next) => {
 };
 
 const getEmail = (req, res, next) => {
-  const email = emails.find(email => email.id === req.params.id);
-  if (!email) throw new NotFoundError('No email found with id: ' + req.params.id);
+  let email = emails.find(email => email.id === req.params.id);
+  if (!email || (req.user.id !== email.to && req.user.id !== email.from) ) throw new NotFoundError('No email found for this user with id: ' + req.params.id);
   formatResponse(res, email, 'email');
 };
 
