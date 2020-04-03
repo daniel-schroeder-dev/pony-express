@@ -22,6 +22,8 @@ const userAuth = (req, res, next) => {
   const user = users.find(user => user.username === username && user.password === password);
   
   if (!user) throw new NotFoundError('No user found with given username and password');
+
+  req.user = user;
   
   next();
 };
@@ -29,7 +31,7 @@ const userAuth = (req, res, next) => {
 router.get('/:id', userAuth, (req, res, next) => {
   const user = users.find(user => user.id === req.params.id);
   if (!user) throw new NotFoundError('No user found with id: ' + req.params.id);
-  formatResponse(res, user, 'user');
+  formatResponse(res, req.user, 'user');
 });
 
 module.exports = router;
