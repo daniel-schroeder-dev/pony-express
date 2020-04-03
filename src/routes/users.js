@@ -17,7 +17,7 @@ const userAuth = (req, res, next) => {
     const [ username, password ] = userCredentials.split(':');
     const user = users.find(user => user.username === username && user.password === password);
     if (!user) {
-      res.status(404).json({ msg: 'No user found with given username and password' });
+      throw new NotFoundError('No user found with given username and password');
     } else {
       next();
     }
