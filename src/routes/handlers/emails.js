@@ -2,12 +2,9 @@ const formatResponse = require('../../utils/formatResponse');
 const NotFoundError = require('../../errors/NotFoundError');
 const getNextEmailId = require('../../utils/getNextEmailId');
 const formatAttachments = require('../../utils/formatAttachments');
+const emailBelongsToUser = require('../../utils/emailBelongsToUser');
 
 let emails = require('../../fixtures/emails');
-
-const emailBelongsToUser = (email, userId) => {
-  return userId === email.to || userId === email.from;
-};
 
 /*
 *   The client will be responsible for sorting emails into sent/recieved 
