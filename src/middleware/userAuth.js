@@ -7,10 +7,7 @@ const userAuth = (req, res, next) => {
   
   const authHeader = req.get('Authorization');
   
-  if (!authHeader || authHeader.split(' ')[0] !== 'Basic') {
-    res.set('WWW-Authenticate', 'Basic: realm="Access to user account"');
-    throw new UnauthorizedError('Must provide a valid username and password')
-  }
+  _parseAuthHeader(authHeader, res);
   
   const userCredentials = Buffer.from(authHeader.split(' ')[1], 'base64').toString('utf8');
   const [ username, password ] = userCredentials.split(':');
@@ -21,6 +18,13 @@ const userAuth = (req, res, next) => {
   req.user = user;
   
   next();
+};
+
+const _parseAuthHeader = (authHeader, res) => {
+  if (!authHeader || authHeader.split(' ')[0] !== 'Basic') {
+    res.set('WWW-Authenticate', 'Basic: realm="Access to user account"');
+    throw new UnauthorizedError('Must provide a valid username and password')
+  }
 };
 
 module.exports = userAuth;
