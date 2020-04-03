@@ -15,10 +15,13 @@ const parseResponseBodyMiddlewareSubStack = [
   upload.array('attachment'),
 ];
 
-router.get('/', getEmails);
-router.get('/:id', getEmail);
-router.delete('/:id', deleteEmail);
-router.post('/', parseResponseBodyMiddlewareSubStack, postEmail);
-router.patch('/:id', parseResponseBodyMiddlewareSubStack, patchEmail);
+router.route('/')
+  .get(getEmails)
+  .post(parseResponseBodyMiddlewareSubStack, postEmail);
+
+router.route('/:id')
+  .get(getEmail)
+  .delete(deleteEmail)
+  .patch(parseResponseBodyMiddlewareSubStack, patchEmail)
 
 module.exports = router;
