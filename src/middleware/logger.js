@@ -17,10 +17,10 @@ const formatLogString = (method, url, statusCode) => {
 
 const addColorToMethodString = method => {
   const methodsToColors = {
-    'GET': chalk.magentaBright,
+    'GET': chalk.redBright,
     'POST': chalk.greenBright,
     'PATCH': chalk.yellowBright,
-    'DELETE': chalk.redBright,
+    'DELETE': chalk.magentaBright,
   };
   return methodsToColors[method](method);
 };
@@ -28,8 +28,8 @@ const addColorToMethodString = method => {
 const addColorToStatusCode = statusCode => {
   if (statusCode <= 299) return chalk.greenBright(statusCode);
   if (statusCode <= 399) return chalk.yellowBright(statusCode);
-  if (statusCode <= 499) return chalk.redBright(statusCode);
-  return chalk.bgRedBright(statusCode);
+  if (statusCode <= 499) return chalk.magentaBright(statusCode);
+  return chalk.bgMagentaBright(statusCode);
 };
 
 module.exports = logger;
