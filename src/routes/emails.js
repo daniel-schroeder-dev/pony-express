@@ -5,6 +5,8 @@ const jsonParser = require('body-parser').json();
 const urlEncodedParser = require('body-parser').urlencoded({ extended: true });
 const upload = require('multer')({ dest: path.join(__dirname, '../../uploads/' )});
 
+const userAuth = require('../middleware/userAuth');
+
 const { getEmails, getEmail, deleteEmail, postEmail, patchEmail } = require('./handlers/emails');
 
 const router = express.Router();
@@ -14,6 +16,8 @@ const parseResponseBodyMiddlewareSubStack = [
   jsonParser, 
   upload.array('attachment'),
 ];
+
+router.use(userAuth);
 
 router.route('/')
   .get(getEmails)
