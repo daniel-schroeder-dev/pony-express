@@ -1,5 +1,6 @@
 const formatResponse = require('../../utils/formatResponse');
 const NotFoundError = require('../../errors/NotFoundError');
+const ForbiddenError = require('../../errors/ForbiddenError');
 const getNextEmailId = require('../../utils/getNextEmailId');
 const formatAttachments = require('../../utils/formatAttachments');
 const emailBelongsToUser = require('../../utils/emailBelongsToUser');
@@ -18,9 +19,7 @@ const getEmails = (req, res, next) => {
 const getEmail = (req, res, next) => {
   let email = emails.find(email => email.id === req.params.id);
   if (!email) throw new NotFoundError('No email found for this user with id: ' + req.params.id);
-  if (!emailBelongsToUser(email, req.user)) {
-    return res.sendStatus(403);
-  }
+  if (!emailBelongsToUser(email, req.user)) throw new ForbiddenError('You do not have permission to access this email');
   formatResponse(res, email, 'email');
 };
 
