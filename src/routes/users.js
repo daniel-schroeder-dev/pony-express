@@ -16,8 +16,11 @@ const userAuth = (req, res, next) => {
     const userCredentials = Buffer.from(authHeader.split(' ')[1], 'base64').toString('utf8');
     const [ username, password ] = userCredentials.split(':');
     const user = users.find(user => user.username === username && user.password === password);
-    console.log(user);
-    next();
+    if (!user) {
+      res.status(404).json({ msg: 'No user found with given username and password' });
+    } else {
+      next();
+    }
   }
 };
 
