@@ -14,7 +14,9 @@ const userAuth = (req, res, next) => {
     res.status(401).json({ msg: 'Must provide a valid username and password' });
   } else {
     const userCredentials = Buffer.from(authHeader.split(' ')[1], 'base64').toString('utf8');
-    console.log(userCredentials);
+    const [ username, password ] = userCredentials.split(':');
+    const user = users.find(user => user.username === username && user.password === password);
+    console.log(user);
     next();
   }
 };
