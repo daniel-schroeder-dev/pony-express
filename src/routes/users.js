@@ -1,6 +1,7 @@
 const express = require('express');
 
 const NotFoundError = require('../errors/NotFoundError');
+const UnauthorizedError = require('../errors/UnauthorizedError');
 const formatResponse = require('../utils/formatResponse');
 
 const users = require('../fixtures/users');
@@ -11,7 +12,7 @@ const userAuth = (req, res, next) => {
   const authHeader = req.get('Authorization');
   if (!authHeader || authHeader.split(' ')[0] !== 'Basic') {
     res.set('WWW-Authenticate', 'Basic: realm="Access to user account"');
-    res.status(401).json({ msg: 'Must provide a valid username and password' });
+    throw new UnauthorizedError('Must provide a valid username and password')
   } else {
     const userCredentials = Buffer.from(authHeader.split(' ')[1], 'base64').toString('utf8');
     const [ username, password ] = userCredentials.split(':');
