@@ -6,7 +6,8 @@ const formatAttachments = require('../../utils/formatAttachments');
 let emails = require('../../fixtures/emails');
 
 const getEmails = (req, res, next) => {
-  formatResponse(res, emails, 'emails');
+  const userEmails = emails.filter(email => email.to === req.user.id || email.from === req.user.id);
+  formatResponse(res, userEmails, 'emails');
 };
 
 const getEmail = (req, res, next) => {
