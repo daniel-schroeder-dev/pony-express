@@ -32,6 +32,7 @@ const deleteEmail = (req, res, next) => {
 
 const postEmail = (req, res, next) => {
   const email = req.body;
+  if (email.from !== req.user.id) throw new ForbiddenError('Malformed email, field {from} doesn\'t match user id');
   email.attachments = formatAttachments(req.files);
   email.id = getNextEmailId(emails);
   emails.push(email);
