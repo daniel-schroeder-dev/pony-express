@@ -5,6 +5,10 @@ const formatAttachments = require('../../utils/formatAttachments');
 
 let emails = require('../../fixtures/emails');
 
+/*
+*   The client will be responsible for sorting emails into sent/recieved 
+*   categories, we only send back emails associated with the user.
+*/
 const getEmails = (req, res, next) => {
   const userEmails = emails.filter(email => email.to === req.user.id || email.from === req.user.id);
   formatResponse(res, userEmails, 'emails');
