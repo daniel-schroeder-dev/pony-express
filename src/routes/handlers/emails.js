@@ -41,6 +41,7 @@ const postEmail = (req, res, next) => {
 
 const patchEmail = (req, res, next) => {
   const updatedEmail = req.body;
+  if (email.from !== req.user.id) throw new ForbiddenError('Malformed email, field {from} doesn\'t match user id');
   updatedEmail.attachments = formatAttachments(req.files);
   const oldEmail = emails.find(email => email.id === req.params.id);
   Object.assign(oldEmail, updatedEmail);
