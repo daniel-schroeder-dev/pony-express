@@ -17,14 +17,18 @@ const getEmails = (req, res, next) => {
 
 const getEmail = (req, res, next) => {
   let email = emails.find(email => email.id === req.params.id);
-  if (!email || !emailBelongsToUser(email, req.user.id)) throw new NotFoundError('No email found for this user with id: ' + req.params.id);
+  if (!email || !emailBelongsToUser(email, req.user)) throw new NotFoundError('No email found for this user with id: ' + req.params.id);
   formatResponse(res, email, 'email');
 };
 
 const deleteEmail = (req, res, next) => {
   const emailToDelete = emails.find(email => email.id === req.params.id);
-  emails = emails.filter(email => email.id !== req.params.id);
-  res.status(200).json(emailToDelete);
+  if (!emailBelongsToUser(emailToDelete, req.user)) {
+    res.sendStatus(403);
+  } else {
+    emails = emails.filter(email => email.id !== req.params.id);
+    res.status(200).json(emailToDelete);
+  }
 };
 
 const postEmail = (req, res, next) => {
