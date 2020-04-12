@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const users = require('../fixtures/users');
 const UnauthorizedError = require('../errors/UnauthorizedError');
+const InvalidJWTError = require('../errors/InvalidJWTError');
 
 const bearerAuth = (req, res, next) => {
 
@@ -13,7 +14,7 @@ const bearerAuth = (req, res, next) => {
   try {
     payload = jwt.verify(authHeader.split(' ')[1], process.env.JWT_SECRET);
   } catch(e) {
-    console.error(e);
+    throw new InvalidJWTError(e);
   }
 
   req.user = users.find(user => user.id === payload.id);
