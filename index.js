@@ -4,6 +4,7 @@ const compression = require('compression');
 const bodyParser = require('body-parser');
 
 const defaultErrorHandler = require('./src/middleware/defaultErrorHandler');
+const NotFoundError = require('./src/errors/NotFoundError');
 const logger = require('./src/middleware/logger');
 const parseJSON = bodyParser.json();
 
