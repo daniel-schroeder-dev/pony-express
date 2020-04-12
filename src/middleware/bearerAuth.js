@@ -1,12 +1,25 @@
+const jwt = require('jsonwebtoken');
+
 const users = require('../fixtures/users');
 const UnauthorizedError = require('../errors/UnauthorizedError');
 
 const bearerAuth = (req, res, next) => {
 
-  validateAuthHeader(req.get('Authorization'), res);
+  const authHeader = req.get('Authorization');
+  validateAuthHeader(authHeader, res);
+  
+  let payload;
 
-  // req.user = users.find(user => user.email)
+  try {
+    payload = jwt.verify(authHeader.split(' ')[1], process.env.JWT_SECRET);
+  } catch(e) {
+    console.error(e);
+  }
+
+  req.user = users.find(user => user.id === payload.id);
+
   next();
+
 };
 
 const validateAuthHeader = (authHeader, res) => {
