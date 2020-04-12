@@ -8,16 +8,9 @@ const bearerAuth = (req, res, next) => {
 
   const authHeader = req.get('Authorization');
   validateAuthHeader(authHeader, res);
-  
-  let payload;
 
-  try {
-    payload = jwt.verify(authHeader.split(' ')[1], process.env.JWT_SECRET);
-  } catch(e) {
-    throw new InvalidJWTError(e);
-  }
-
-  req.user = users.find(user => user.id === payload.id);
+  const id = verifyJWT(authHeader.split(' ')[1]);
+  req.user = users.find(user => user.id === id);
 
   next();
 
@@ -29,5 +22,17 @@ const validateAuthHeader = (authHeader, res) => {
     throw new UnauthorizedError('Must provide valid Bearer authentication credentials');
   }
 };
+
+const verifyJWT = payload => {
+  let parsedPayload;
+  try {
+    parsedPayload = jwt.verify(payload, process.env.JWT_SECRET);
+  } catch(e) {
+    throw new InvalidJWTError(e);
+  }
+
+  return parsedPayload.id;
+}
+
 
 module.exports = bearerAuth;
