@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "npx nodemon index.js",
-    "deploy": "git push heroku master && git push origin master"
+    "deploy": "git push heroku master && git push origin master && npm run clean",
+    "clean": "rm -rf ./uploads/*"
   },
   "keywords": [],
   "author": "",
