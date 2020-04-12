@@ -4,21 +4,21 @@ const UnauthorizedError = require('../errors/UnauthorizedError');
 const basicAuth = (req, res, next) => {
 
   const authHeader = req.get('Authorization');
-  _parseAuthHeader(authHeader, res);
-  req.user = _validateUserCredentials(authHeader);
+  validateBasicAuthHeader(authHeader, res);
+  req.user = validateUserCredentials(authHeader);
   
   next();
 
 };
 
-const _parseAuthHeader = (authHeader, res) => {
+const validateBasicAuthHeader = (authHeader, res) => {
   if (!authHeader || authHeader.split(' ')[0] !== 'Basic') {
     res.set('WWW-Authenticate', 'Basic: realm="Access to user account"');
     throw new UnauthorizedError('Must provide a valid username and password')
   }
 };
 
-const _validateUserCredentials = authHeader => {
+const validateUserCredentials = authHeader => {
 
   const users = require('../fixtures/users');
 
