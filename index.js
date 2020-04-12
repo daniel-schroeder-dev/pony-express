@@ -32,6 +32,8 @@ app.post('/request-token', parseJSON, (req, res, next) => {
 
   if (!user) throw new NotFoundError('No user found with given username and password');
 
+  
+
   res.json({ jwt: 'token' });
 
 });
