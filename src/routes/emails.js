@@ -6,6 +6,7 @@ const urlEncodedParser = require('body-parser').urlencoded({ extended: true });
 const upload = require('multer')({ dest: path.join(__dirname, '../../uploads/' )});
 
 // const basicAuth = require('../middleware/basicAuth');
+const bearerAuth = require('../middleware/bearerAuth');
 
 const { getEmails, getEmail, deleteEmail, postEmail, patchEmail } = require('./handlers/emails');
 
@@ -18,6 +19,7 @@ const parseResponseBodyMiddlewareSubStack = [
 ];
 
 // router.use(basicAuth);
+router.use(bearerAuth);
 
 router.route('/')
   .get(getEmails)

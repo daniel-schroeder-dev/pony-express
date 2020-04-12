@@ -4,10 +4,12 @@ const NotFoundError = require('../errors/NotFoundError');
 const formatResponse = require('../utils/formatResponse');
 
 // const basicAuth = require('../middleware/basicAuth');
+const bearerAuth = require('../middleware/bearerAuth');
 
 const router = express.Router();
 
 // router.use(basicAuth)
+router.use(bearerAuth);
 
 /*
 *   Note that a user could be authenticated (meaning they passed in the 

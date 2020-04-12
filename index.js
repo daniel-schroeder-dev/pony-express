@@ -20,6 +20,11 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads/')));
 app.use('/users', usersRouter);
 app.use('/emails', emailsRouter);
 
+app.post('/request-token', (req, res, next) => {
+
+  res.json({ jwt: 'token' });
+});
+
 app.use(defaultErrorHandler);
 
 app.listen(PORT, () => {
