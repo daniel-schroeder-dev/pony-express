@@ -1,7 +1,10 @@
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();  
+
 const path = require('path');
 const express = require('express');
 const compression = require('compression');
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
 
 const defaultErrorHandler = require('./src/middleware/defaultErrorHandler');
 const NotFoundError = require('./src/errors/NotFoundError');
@@ -32,9 +35,9 @@ app.post('/request-token', parseJSON, (req, res, next) => {
 
   if (!user) throw new NotFoundError('No user found with given username and password');
 
-  
+  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "7d" } );
 
-  res.json({ jwt: 'token' });
+  res.json({ token });
 
 });
 
