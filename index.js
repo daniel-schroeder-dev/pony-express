@@ -4,11 +4,10 @@ const path = require('path');
 const express = require('express');
 const compression = require('compression');
 const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
 
-const defaultErrorHandler = require('./src/middleware/defaultErrorHandler');
-const NotFoundError = require('./src/errors/NotFoundError');
 const logger = require('./src/middleware/logger');
+const defaultErrorHandler = require('./src/middleware/defaultErrorHandler');
+const generateJWT = require('./src/middleware/generateJWT');
 const parseJSON = bodyParser.json();
 
 const usersRouter = require('./src/routes/users');
@@ -26,20 +25,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads/')));
 app.use('/users', usersRouter);
 app.use('/emails', emailsRouter);
 
-app.post('/request-token', parseJSON, (req, res, next) => {
-
-  const users = require('./src/fixtures/users');
-  const { username, password } = req.body;
-
-  const user = users.find(user => user.username === username && user.password === password);
-
-  if (!user) throw new NotFoundError('No user found with given username and password');
-
-  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "7d" } );
-
-  res.json({ token });
-
-});
+app.post('/request-token', parseJSON, generateJWT);
 
 app.use(defaultErrorHandler);
 
