@@ -3,7 +3,7 @@ const express = require('express');
 const NotFoundError = require('../errors/NotFoundError');
 const formatResponse = require('../utils/formatResponse');
 
-const userAuth = require('../middleware/userAuth');
+const basicAuth = require('../middleware/basicAuth');
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ const router = express.Router();
 *   client should be expected to request the correct :id as well as send
 *   correct auth credentials.
 */
-router.get('/:id', userAuth, (req, res, next) => {
+router.get('/:id', basicAuth, (req, res, next) => {
   if (req.user.id !== req.params.id) throw new NotFoundError('No user found with id: ' + req.params.id);
   formatResponse(res, req.user, 'user');
 });

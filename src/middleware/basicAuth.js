@@ -1,7 +1,7 @@
 const NotFoundError = require('../errors/NotFoundError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
 
-const userAuth = (req, res, next) => {
+const basicAuth = (req, res, next) => {
 
   const authHeader = req.get('Authorization');
   _parseAuthHeader(authHeader, res);
@@ -32,4 +32,4 @@ const _validateUserCredentials = authHeader => {
 
 };
 
-module.exports = userAuth;
+module.exports = basicAuth;
